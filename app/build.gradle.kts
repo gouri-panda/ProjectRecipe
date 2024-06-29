@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -48,6 +49,16 @@ android {
         }
     }
 }
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "com.intellij" && requested.name == "annotations") {
+                useTarget("org.jetbrains:annotations:23.0.0")
+            }
+        }
+    }
+}
+
 
 dependencies {
 
@@ -60,6 +71,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.engage.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,4 +86,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.coil)
+    implementation("com.intellij:annotations:12.0") {
+        exclude(group = "com.intellij", module = "*")
+    }
+    implementation("org.jetbrains:annotations:23.0.0")
+    kapt("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.compose.material:material:1.4.2")
+
+
+
 }
