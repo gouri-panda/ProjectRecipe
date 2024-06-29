@@ -1,5 +1,6 @@
 package com.gouri.projectrecipe
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,7 +29,8 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
 
     private fun searchRecipes(query: String) {
         viewModelScope.launch {
-            repository.searchRecipes("YOUR_API_KEY", query).collect {
+            repository.searchRecipes("Removed for git", query).collect {
+                Log.d("RecipeViewModel", "Search results: $it")
                 searchResults.value = it
             }
         }
