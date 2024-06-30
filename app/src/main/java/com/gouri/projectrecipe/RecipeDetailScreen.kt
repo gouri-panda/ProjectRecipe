@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
@@ -31,7 +32,7 @@ fun RecipeDetailScreen(recipe: Recipe) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(recipe.title) },
+                title = { Text(recipe.title, color = Color.White) },
                 navigationIcon = {
                     IconButton(onClick = { /* Handle back navigation */ }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = null)
@@ -53,31 +54,40 @@ fun RecipeDetailScreen(recipe: Recipe) {
             Text(
                 text = recipe.title,
                 style = MaterialTheme.typography.h4,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Ingredients",
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                color = Color.White
+
             )
             for (ingredient in recipe.extendedIngredients) {
                 Text(
                     text = "${ingredient.name}: ${ingredient.amount} ${ingredient.unit}",
                     style = MaterialTheme.typography.body1,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
+                    color = Color.White
+
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Instructions",
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                color = Color.White
+
             )
             Text(
                 text = recipe.instructions,
                 style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                color = Color.White
+
             )
         }
     }

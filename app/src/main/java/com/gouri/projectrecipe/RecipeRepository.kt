@@ -20,13 +20,6 @@ class RecipeRepository(private val api: SpoonacularApi, private val recipeDao: R
         emit(response.results)
     }
 
-//    suspend fun getRecipeById(id: Int): Recipe? {
-//        // Implement fetching recipe by ID from API
-//    }
-//
-//    suspend fun fetchRecipesFromApi(query: String): List<Recipe> {
-//        // Implement fetching recipes from API
-//    }
 
     fun getAllFavoriteRecipes(): Flow<List<RecipeEntity>> {
         return recipeDao.getAllRecipes()

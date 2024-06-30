@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -173,7 +174,8 @@ fun RecipeItem(recipe: Recipe, onClick: () -> Unit, onToggleFavorite: () -> Unit
             .padding(8.dp)
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Black)
     ) {
         Column {
             Image(
@@ -201,7 +203,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         BottomNavItem.Home,
         BottomNavItem.Favorites
     )
-    BottomNavigation(backgroundColor = MaterialTheme.colors.surface, contentColor = MaterialTheme.colors.onSurface, elevation = 8.dp){
+    BottomNavigation(backgroundColor = Color.Black, contentColor = MaterialTheme.colors.surface, elevation = 8.dp){
         val currentRoute = currentRoute(navController)
         items.forEach { item ->
             BottomNavigationItem(

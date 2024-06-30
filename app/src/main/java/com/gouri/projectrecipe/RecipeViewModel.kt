@@ -20,8 +20,9 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     val searchResults = MutableStateFlow<List<Recipe>>(emptyList())
 
     init {
-//        randomRecipes()
+        randomRecipes()
     }
+
     val favoriteRecipes = repository.allRecipes.map { recipes ->
         recipes.map { recipeEntity ->
             Recipe(
@@ -39,6 +40,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
         searchQuery.value = query
         searchRecipes(query)
     }
+
     private var navigateToDetail: ((Int) -> Unit)? = null
 
     fun setNavigationFunction(navigateToDetail: (Int) -> Unit) {
@@ -64,6 +66,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
             }
         }
     }
+
     private fun randomRecipes() {
         viewModelScope.launch {
             repository.randomRecipes("c051581d9185437abc44bf07a7c496b2", 15).collect {
@@ -74,6 +77,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
             }
         }
     }
+
     fun toggleFavoriteRecipe(recipe: Recipe) {
         viewModelScope.launch {
             val isFavorite = favoriteRecipes.value.any { it.id == recipe.id }
@@ -82,9 +86,27 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
             recipe.favorite = !isFavorite
             viewModelScope.launch(Dispatchers.IO) {
                 if (isFavorite) {
-                    repository.deleteFavoriteRecipe(RecipeEntity(id = recipe.id, title = recipe.title, image = recipe.image, instructions = recipe.instructions, extendedIngredients = recipe.extendedIngredients, favorite = false))
+                    repository.deleteFavoriteRecipe(
+                        RecipeEntity(
+                            id = recipe.id,
+                            title = recipe.title,
+                            image = recipe.image,
+                            instructions = recipe.instructions,
+                            extendedIngredients = recipe.extendedIngredients,
+                            favorite = false
+                        )
+                    )
                 } else {
-                    repository.insertFavoriteRecipe(RecipeEntity(id = recipe.id, title = recipe.title, image = recipe.image, instructions = recipe.instructions, extendedIngredients = recipe.extendedIngredients, favorite = true))
+                    repository.insertFavoriteRecipe(
+                        RecipeEntity(
+                            id = recipe.id,
+                            title = recipe.title,
+                            image = recipe.image,
+                            instructions = recipe.instructions,
+                            extendedIngredients = recipe.extendedIngredients,
+                            favorite = true
+                        )
+                    )
                 }
             }
 
